@@ -14,6 +14,6 @@ class AccueilController extends AbstractController
 
         //$args = TODO: mettre le role de l'utilisateur
 
-        return $this->render('accueil/list.html.twig');
+        return $this->render('accueil/index.html.twig');
     }
 }

@@ -20,11 +20,13 @@
                     <td>{{ produit.prix }}</td>
                     <td>{{ produit.enStock }}</td>
                     <td>
-                        <select name="{{ produit.id }}">
-                            {% for i in 0..produit.enStock %}
-                                <option value="{{ i }}">{{ i }}</option>
-                            {% endfor %}
-                        </select>
+                        {% if produit.enStock > 0 %}
+                            <select name="{{ produit.id }}">
+                                {% for i in 0..produit.enStock %}
+                                    <option value="{{ i }}">{{ i }}</option>
+                                {% endfor %}
+                            </select>
+                        {% endif %}
                     </td>
                 </tr>
             {% endfor %}

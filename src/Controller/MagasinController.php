@@ -30,9 +30,9 @@ class MagasinController extends AbstractController
         $em = $doctrine->getManager();
 
         $produit = new Product();
-        $produit->setLibelle("Chaise de table - ADDE")
-            ->setPrix(12)
-            ->setEnStock(36);
+        $produit->setLibelle("Chaise Brielle")
+            ->setPrix(44)
+            ->setEnStock(0);
 
         $em->persist($produit);
         $em->flush();

@@ -2,6 +2,9 @@
 
 {% block body %}
 <div class="example-wrapper">
+    {% for msg in app.session.flashBag.get('info') %}
+        <li>{{ msg }}</li>
+    {% endfor %}
     <h1>Bonjour</h1>
     <br>
     <p>Bienvenue sur notre site 😉</p>
