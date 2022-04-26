@@ -3,7 +3,7 @@
 
 {% block body %}
     <h1>Liste des produits du magasin</h1>
-    <form>
+    <form method="post" action="{{ path("panier_add") }}">
         <table>
             <thead>
             <tr>
@@ -21,7 +21,7 @@
                     <td>{{ produit.enStock }}</td>
                     <td>
                         {% if produit.enStock > 0 %}
-                            <select name="{{ produit.id }}">
+                            <select name="quantity[{{ produit.id }}]">
                                 {% for i in 0..produit.enStock %}
                                     <option value="{{ i }}">{{ i }}</option>
                                 {% endfor %}

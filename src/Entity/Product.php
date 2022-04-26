@@ -23,6 +23,8 @@ class Product
     #[ORM\Column(type: 'integer')]
     private $enStock;
 
+
+
     public function getId(): ?int
     {
         return $this->id;

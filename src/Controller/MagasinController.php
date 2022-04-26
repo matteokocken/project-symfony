@@ -21,6 +21,8 @@ class MagasinController extends AbstractController
         $args = array(
             'produits' => $produits
         );
+
+
         return $this->render('magasin/list.html.twig', $args);
     }
 
@@ -29,12 +31,12 @@ class MagasinController extends AbstractController
     {
         $em = $doctrine->getManager();
 
-        $produit = new Product();
-        $produit->setLibelle("Chaise Brielle")
-            ->setPrix(44)
-            ->setEnStock(0);
+        $product = new Product();
+        $product->setLibelle("Table de salle à manger Tarraco en Chêne Doré")
+            ->setPrix(382)
+            ->setEnStock(26);
 
-        $em->persist($produit);
+        $em->persist($product);
         $em->flush();
 
         return $this->redirectToRoute('magasin_list');
