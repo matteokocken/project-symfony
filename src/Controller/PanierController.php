@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Panier;
 use App\Entity\Product;
+use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -100,7 +101,8 @@ class PanierController extends AbstractController
         return $this->redirectToRoute('panier_index');
     }
 
-    #[Route('/clear/', name: '_clear')]
+    #[Route('/clear', name: '_clear',
+    )]
     public function clearAction(EntityManagerInterface $em): Response
     {
         //Recupere l'user
@@ -110,7 +112,6 @@ class PanierController extends AbstractController
 
         $panierRepo = $em->getRepository('App:Panier');
         $paniers = $panierRepo->findBy(['user' => $user]);
-
         foreach($paniers as $panier) {
             //On recuperer le produit
             $product = $panier->getProduct();
@@ -121,6 +122,7 @@ class PanierController extends AbstractController
             $em->remove($panier);
             $em->persist($product);
         }
+        $em->persist($paniers);
         $em->flush();
         return $this->redirectToRoute('panier_index');
     }

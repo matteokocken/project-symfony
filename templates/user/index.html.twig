@@ -1,0 +1,38 @@
+{% extends 'Base/base.html.twig' %}
+
+
+{% block body %}
+    <h1>Liste des utilisateurs</h1>
+    {% for msg in app.session.flashBag.get('info') %}
+        <li>{{ msg }}</li>
+    {% endfor %}
+    <table>
+        <thead>
+            <tr>
+                <th>Login</th>
+                <th>Mot de passe (hashé)</th>
+                <th>Prénom</th>
+                <th>Nom</th>
+                <th>Date de naissance</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.login }}</td>
+                    <td></td>
+                    <td>{{ user.firstName }}</td>
+                    <td>{{ user.lastName }}</td>
+                    <td>{{ user.dateOfBirth|date('d/m/Y') }}</td>
+                    <td></td>
+                    <td>
+                        {% if(ourUser.id != user.id) %}
+                            <a href="{{ path("user_delete", {'id': user.id}) }}">Supprimer</a>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
