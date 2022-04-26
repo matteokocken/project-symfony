@@ -67,4 +67,79 @@ class PanierController extends AbstractController
         return $this->redirectToRoute('panier_index');
     }
 
+    #[Route('/delete/{id_product}',
+        name: '_delete',
+        requirements: ['id_product' => "[1-9][0-9]*"]
+    )]
+    public function deleteAction(Product $id_product, EntityManagerInterface $em): Response
+    {
+        // $id_product viens de Panier
+        // $product viens de Product
+
+        //Recupere l'user
+        $id_user = $this->getParameter('id_global');
+        $userRepo = $em->getRepository("App:User");
+        $user = $userRepo->find($id_user);
+
+        $panierRepo = $em->getRepository("App:Panier");
+
+        $panierRepo = $em->getRepository('App:Panier');
+        $panier = $panierRepo->findOneBy(['user' => $user, 'product' => $id_product]);
+
+        //Quantity dans le panier
+        $panierQuantity = $panier->getQuantity();
+
+        // Quantity de base
+        $produitQuantity = $id_product->getEnStock();
+
+        $id_product->setEnStock($produitQuantity + $panierQuantity);
+
+        $em->remove($panier);
+        $em->persist($id_product);
+        $em->flush();
+        return $this->redirectToRoute('panier_index');
+    }
+
+    #[Route('/clear/', name: '_clear')]
+    public function clearAction(EntityManagerInterface $em): Response
+    {
+        //Recupere l'user
+        $id_user = $this->getParameter('id_global');
+        $userRepo = $em->getRepository("App:User");
+        $user = $userRepo->find($id_user);
+
+        $panierRepo = $em->getRepository('App:Panier');
+        $paniers = $panierRepo->findBy(['user' => $user]);
+
+        foreach($paniers as $panier) {
+            //On recuperer le produit
+            $product = $panier->getProduct();
+
+            //On modifie la valeur en stock du produit
+            $quantityProduct = $product->getEnStock();
+            $product->setEnStock($quantityProduct + $panier->getQuantity());
+            $em->remove($panier);
+            $em->persist($product);
+        }
+        $em->flush();
+        return $this->redirectToRoute('panier_index');
+    }
+
+    #[Route('/buy/', name: '_buy')]
+    public function buyAction(EntityManagerInterface $em): Response
+    {
+        // De meme que clear action sauf qu'on remet pas les quantités à jour
+        $id_user = $this->getParameter('id_global');
+        $userRepo = $em->getRepository("App:User");
+        $user = $userRepo->find($id_user);
+
+        $panierRepo = $em->getRepository('App:Panier');
+        $paniers = $panierRepo->findBy(['user' => $user]);
+
+        foreach($paniers as $panier) {
+            $em->remove($panier);
+        }
+        $em->flush();
+        return $this->redirectToRoute('panier_index');
+    }
 }

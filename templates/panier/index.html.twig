@@ -18,14 +18,14 @@
                         <td>{{ panier.product.prix }}</td>
                         <td>{{ panier.quantity }}</td>
                         <td>{{ panier.quantity * panier.product.prix }}</td>
-                        <td><input type="button" value="Supprimer"></td>
+                        <td><button><a href="{{ path('panier_delete', { 'id_product': panier.product.id }) }}">Supprimer</a></button></td>
                     </tr>
                 {% endfor %}
 
                 <tr>
                     <td colspan="3"></td>
-                    <td><input type="button" value="Acheter"></td>
-                    <td><input type="button" value="Vider"></td>
+                    <td><button><a href="{{ path("panier_buy") }}">Acheter</a></button></td>
+                    <td><button><a href="{{ path("panier_clear") }}">Vider</a></button></td>
                 </tr>
                 </tbody>
             </table>
