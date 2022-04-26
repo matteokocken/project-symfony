@@ -26,6 +26,12 @@ class MagasinController extends AbstractController
         return $this->render('magasin/list.html.twig', $args);
     }
 
+    #[Route('/add', name: '_add')]
+    public function addAction(ManagerRegistry $doctrine): Response
+    {
+
+    }
+
     #[Route('/ajoutendur', name: '_ajoutendur')]
     public function ajoutEnDurAction(ManagerRegistry $doctrine): Response
     {

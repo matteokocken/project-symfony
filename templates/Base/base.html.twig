@@ -9,6 +9,10 @@
         {% endblock %}
     </head>
     <body>
+        {% include 'Elements/header.html.twig' %}
+        <div class="menu">
+            {{ render(controller('App\\Controller\\PanierController::menuAction')) }}
+        </div>
         {% block body %}{% endblock %}
     </body>
 </html>

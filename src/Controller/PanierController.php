@@ -64,7 +64,7 @@ class PanierController extends AbstractController
             }
         }
         $em->flush();
-        return $this->redirectToRoute('panier_index');
+        return $this->redirectToRoute('magasin_list');
     }
 
     #[Route('/delete/{id_product}',
@@ -141,5 +141,19 @@ class PanierController extends AbstractController
         }
         $em->flush();
         return $this->redirectToRoute('panier_index');
+    }
+
+    public function menuAction(EntityManagerInterface $em): Response
+    {
+        $id_user = $this->getParameter('id_global');
+        $userRepo = $em->getRepository("App:User");
+        $user = $userRepo->find($id_user);
+
+        $panierRepo = $em->getRepository('App:Panier');
+        $paniers = $panierRepo->findBy(['user' => $user]);
+
+
+        $args = array('nb_articles' => sizeof($paniers));
+        return $this->render('Elements/menu.html.twig', $args);
     }
 }
