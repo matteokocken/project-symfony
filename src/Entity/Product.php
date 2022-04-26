@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\ProductRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[  ORM\Table(name:"im22_product"),
     ORM\Entity(repositoryClass: ProductRepository::class)]
@@ -14,13 +15,19 @@ class Product
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', length: 255),
+        Assert\NotBlank(message: 'Le nom du produit ne doit pas être vide')
+    ]
     private $libelle;
 
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column(type: 'integer'),
+        Assert\Positive(message: "Le prix doit être positif")
+    ]
     private $prix;
 
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column(type: 'integer'),
+        Assert\PositiveOrZero(message: 'La quantité en stock doit être positive ou nul')
+    ]
     private $enStock;
 
 
