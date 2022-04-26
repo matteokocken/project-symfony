@@ -6,13 +6,14 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraint as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[  ORM\Table(name:"im22_users"),
     ORM\Entity(repositoryClass: UserRepository::class),
-    ORM\UniqueConstraint(
-        name: 'fullname_unique_id',
-        columns: ['first_name', 'last_name'],
+    UniqueEntity(
+        fields: ['firstName', 'lastName'],
+        message: 'Ce couple nom/prenom n\'est pas unique',
     ),
 ]
 
@@ -24,13 +25,18 @@ class User
     private $id;
 
     #[  ORM\Column(type: 'string', length: 100),
-        Assert\Length(min: 2, max: 10, minMessage: 'Login trop court', maxMessage: "Trop grand")]
+        Assert\NotBlank(message: 'Votre login ne doit pas être vide !')
+    ]
     private $login;
 
-    #[ORM\Column(type: 'string', length: 100)]
+    #[ORM\Column(type: 'string', length: 100),
+        Assert\NotBlank(message: 'Votre prénom ne doit pas être vide !')
+    ]
     private $firstName;
 
-    #[ORM\Column(type: 'string', length: 100)]
+    #[ORM\Column(type: 'string', length: 100),
+        Assert\NotBlank(message: 'Votre nom ne doit pas être vide !')
+    ]
     private $lastName;
 
     #[ORM\Column(type: 'datetime')]

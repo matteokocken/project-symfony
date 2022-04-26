@@ -29,9 +29,6 @@ class AccountController extends AbstractController
             $this->addFlash('info', 'Compte créé');
             return $this->redirectToRoute('accueil');
         }
-        if($form->isSubmitted()) {
-            $this->addFlash('info', 'Erreur lors de la création du compte');
-        }
 
         $args = array('myform' => $form->createView());
         return $this->render('account/create.html.twig', $args);
@@ -58,9 +55,6 @@ class AccountController extends AbstractController
             $em->flush();
             $this->addFlash('info', 'Compte modifié');
             return $this->redirectToRoute('magasin_list');
-        }
-        if($form->isSubmitted()) {
-            $this->addFlash('info', 'Erreur lors de la modification du compte');
         }
 
         $args = array('myform' => $form->createView());

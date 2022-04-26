@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -14,9 +15,9 @@ class CreateAccountType extends AbstractType
     {
         $builder
             ->add('login', TextType::class, ['label' => 'Login : '])
-            ->add('firstName')
-            ->add('lastName')
-            ->add('dateOfBirth')
+            ->add('firstName', TextType::class, ['label' => 'Prénom : '])
+            ->add('lastName', TextType::class, ['label' => 'Nom : '])
+            ->add('dateOfBirth', DateType::class, ['label' => 'Date de naissance : ', 'years' => range(date('Y'), 1920),])
         ;
     }
 
