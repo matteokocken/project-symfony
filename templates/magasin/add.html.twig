@@ -1,6 +1,9 @@
 {% extends 'Base/base.html.twig' %}
 
-
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/vente.css') }}">
+{% endblock %}
 {% block body %}
     <h1>Ajouter un produit</h1>
     {{ form(myform) }}

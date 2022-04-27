@@ -26,4 +26,12 @@ class AccueilController extends AbstractController
 
         return $this->render('accueil/index.html.twig', $args);
     }
+
+    public function headerAction()
+    {
+        $user = $this->getUser();
+
+        $args = array('admin' => $user !== null && $user->getRoles()[0] === 'ROLE_ADMIN', 'connected' => $user !== null);
+        return $this->render('Elements/header.html.twig', $args);
+    }
 }

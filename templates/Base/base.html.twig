@@ -9,10 +9,11 @@
         {% endblock %}
     </head>
     <body>
-        {% include 'Elements/header.html.twig' %}
+        {{ render(controller('App\\Controller\\AccueilController::headerAction')) }}
         <div class="menu">
             {{ render(controller('App\\Controller\\PanierController::menuAction')) }}
         </div>
         {% block body %}{% endblock %}
+        {% include 'Elements/footer.html.twig' %}
     </body>
 </html>

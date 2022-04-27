@@ -1,0 +1,10 @@
+
+<header style="height: 200px;overflow: hidden;">
+    {% if admin %}
+        <img src="{{ asset('images/admin.jpg') }}" alt="Admin">
+    {% elseif connected %}
+        <img src="{{ asset('images/shopping.jpg') }}" alt="Connected">
+    {% else %}
+        <img src="{{ asset('images/norole.jpg') }}" alt="Visiteur">
+    {% endif %}
+</header>

@@ -1,5 +1,9 @@
 {% extends 'Base/base.html.twig' %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/bienvenue.css') }}">
+{% endblock %}
 {% block body %}
 <div class="example-wrapper">
     {% for msg in app.session.flashBag.get('info') %}
