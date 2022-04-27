@@ -21,13 +21,13 @@
             {% for user in users %}
                 <tr>
                     <td>{{ user.login }}</td>
-                    <td></td>
+                    <td>{{ user.password }}</td>
                     <td>{{ user.firstName }}</td>
                     <td>{{ user.lastName }}</td>
                     <td>{{ user.dateOfBirth|date('d/m/Y') }}</td>
-                    <td></td>
+                    <td>{{ user.roles[0] }}</td>
                     <td>
-                        {% if(ourUser.id != user.id) %}
+                        {% if(ourUser.id != user.id and user.roles[0] != 'ROLE_SUPER_ADMIN' ) %}
                             <a href="{{ path("user_delete", {'id': user.id}) }}">Supprimer</a>
                         {% endif %}
                     </td>

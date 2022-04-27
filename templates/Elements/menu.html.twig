@@ -1,7 +1,31 @@
 <div>
     <h2>Menu</h2>
-    <div>Nombre d'article dans le panier : {{ nb_articles }}</div>
-    <ul>
-{#        <li><a href="{{ path("") }}"></a></li>#}
-    </ul>
+    {% if user != false %}
+        <div>Nombre d'article dans le panier : {{ nb_articles }}</div>
+        <ul>
+            <li><a href="{{ path("security_logout") }}">Se déconnecter</a></li>
+            <li><a href="{{ path("accueil") }}">Page d'accueil</a></li>
+            <li><a href="{{ path("security_update") }}">Modifier mon profil</a></li>
+            {% if (user.roles[0] == 'ROLE_CLIENT' or user.roles[0] == 'ROLE_ADMIN') %}
+                    <li><a href="{{ path("magasin_list") }}">Voir les produits</a></li>
+                    <li><a href="{{ path("panier_index") }}">Mon panier</a></li>
+                    {% if user.roles[0] == 'ROLE_ADMIN' %}
+                        <li><a href="{{ path("user_display") }}">Gerer les utilisateurs</a></li>
+                        <li><a href="{{ path("magasin_add") }}">Créer un produit</a></li>
+                        <li><a href="https://fr.wikipedia.org/wiki/The_Truman_Show">The Truman Show (Wikipedia)</a></li>
+                    {% endif %}
+            {% elseif user.roles[0] == 'ROLE_SUPER_ADMIN' %}
+                <li><a href="{{ path("security_addadmin") }}">Créer un administateur</a></li>
+            {% endif %}
+        </ul>
+
+    {% else %}
+        {# Non Connecté #}
+        <ul>
+            <li><a href="{{ path("accueil") }}">Page d'accueil</a></li>
+            <li><a href="{{ path("security_login") }}">Se connecter</a></li>
+            <li><a href="{{ path("security_new") }}">Créer un compte</a></li>
+        </ul>
+    {% endif %}
+
 </div>

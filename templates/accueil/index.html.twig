@@ -5,8 +5,18 @@
     {% for msg in app.session.flashBag.get('info') %}
         <li>{{ msg }}</li>
     {% endfor %}
-    <h1>Bonjour</h1>
+    {% if connected %}
+        <h1>Bonjour {{ user.firstName }} [{{ user.roles[0] }}]</h1>
+        <br>
+        <p>Nous sommes content de vous revoir !</p>
+    {% else %}
+        <h1>Bonjour</h1>
+        <br>
+        <p>Bienvenue sur notre site 😉 <br><br> Vous êtes un visiteur anonyme !</p>
+    {% endif %}
     <br>
-    <p>Bienvenue sur notre site 😉</p>
+    <div>
+        <h4>La moyenne des notes est de :</h4> <span>{{ result }}</span>
+    </div>
 </div>
 {% endblock %}

@@ -17,7 +17,7 @@ class Panier
     #[ORM\Column(type: 'integer')]
     private $quantity;
 
-    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'paniers')]
+    #[ORM\ManyToOne(targetEntity: UserSecure::class, inversedBy: 'paniers')]
     private $user;
 
     #[ORM\ManyToOne(targetEntity: Product::class)]
@@ -41,12 +41,12 @@ class Panier
         return $this;
     }
 
-    public function getUser(): ?User
+    public function getUser(): ?UserSecure
     {
         return $this->user;
     }
 
-    public function setUser(?User $user): self
+    public function setUser(?UserSecure $user): self
     {
         $this->user = $user;
 

@@ -6,13 +6,17 @@ use App\Entity\Product;
 use App\Form\ProductType;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/magasin', name: 'magasin')]
+#[Route('/magasin', name: 'magasin'),
+    IsGranted('ROLE_CLIENT')
+]
 class MagasinController extends AbstractController
 {
     #[Route('/list', name: '_list')]
@@ -30,7 +34,9 @@ class MagasinController extends AbstractController
         return $this->render('magasin/list.html.twig', $args);
     }
 
-    #[Route('/add', name: '_add')]
+    #[Route('/add', name: '_add'),
+        IsGranted('ROLE_ADMIN')
+    ]
     public function addAction(EntityManagerInterface $em, Request $request): Response
     {
         $product = new Product();
